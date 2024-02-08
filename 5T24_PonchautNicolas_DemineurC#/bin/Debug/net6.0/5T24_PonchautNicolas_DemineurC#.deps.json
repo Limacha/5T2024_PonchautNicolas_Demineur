@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "5T24_PonchautNicolas_DemineurC#/1.0.0": {
+        "runtime": {
+          "5T24_PonchautNicolas_DemineurC#.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "5T24_PonchautNicolas_DemineurC#/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

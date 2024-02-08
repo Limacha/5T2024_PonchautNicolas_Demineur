@@ -1,0 +1,14 @@
+D:\github\5T2024_PonchautNicolas_Demineur\5T24_PonchautNicolas_DemineurC#\obj\Debug\net6.0\5T24_PonchautNicolas_DemineurC#.GeneratedMSBuildEditorConfig.editorconfig
+D:\github\5T2024_PonchautNicolas_Demineur\5T24_PonchautNicolas_DemineurC#\obj\Debug\net6.0\5T24_PonchautNicolas_DemineurC#.AssemblyInfoInputs.cache
+D:\github\5T2024_PonchautNicolas_Demineur\5T24_PonchautNicolas_DemineurC#\obj\Debug\net6.0\5T24_PonchautNicolas_DemineurC#.AssemblyInfo.cs
+D:\github\5T2024_PonchautNicolas_Demineur\5T24_PonchautNicolas_DemineurC#\obj\Debug\net6.0\5T24_PonchautNicolas_DemineurC#.csproj.CoreCompileInputs.cache
+D:\github\5T2024_PonchautNicolas_Demineur\5T24_PonchautNicolas_DemineurC#\bin\Debug\net6.0\5T24_PonchautNicolas_DemineurC#.exe
+D:\github\5T2024_PonchautNicolas_Demineur\5T24_PonchautNicolas_DemineurC#\bin\Debug\net6.0\5T24_PonchautNicolas_DemineurC#.deps.json
+D:\github\5T2024_PonchautNicolas_Demineur\5T24_PonchautNicolas_DemineurC#\bin\Debug\net6.0\5T24_PonchautNicolas_DemineurC#.runtimeconfig.json
+D:\github\5T2024_PonchautNicolas_Demineur\5T24_PonchautNicolas_DemineurC#\bin\Debug\net6.0\5T24_PonchautNicolas_DemineurC#.dll
+D:\github\5T2024_PonchautNicolas_Demineur\5T24_PonchautNicolas_DemineurC#\bin\Debug\net6.0\5T24_PonchautNicolas_DemineurC#.pdb
+D:\github\5T2024_PonchautNicolas_Demineur\5T24_PonchautNicolas_DemineurC#\obj\Debug\net6.0\5T24_PonchautNicolas_DemineurC#.dll
+D:\github\5T2024_PonchautNicolas_Demineur\5T24_PonchautNicolas_DemineurC#\obj\Debug\net6.0\refint\5T24_PonchautNicolas_DemineurC#.dll
+D:\github\5T2024_PonchautNicolas_Demineur\5T24_PonchautNicolas_DemineurC#\obj\Debug\net6.0\5T24_PonchautNicolas_DemineurC#.pdb
+D:\github\5T2024_PonchautNicolas_Demineur\5T24_PonchautNicolas_DemineurC#\obj\Debug\net6.0\5T24_PonchautNicolas_DemineurC#.genruntimeconfig.cache
+D:\github\5T2024_PonchautNicolas_Demineur\5T24_PonchautNicolas_DemineurC#\obj\Debug\net6.0\ref\5T24_PonchautNicolas_DemineurC#.dll
