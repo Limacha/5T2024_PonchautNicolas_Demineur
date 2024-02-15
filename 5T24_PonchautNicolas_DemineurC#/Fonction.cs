@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Diagnostics;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
@@ -389,27 +390,78 @@ namespace _5TTI_NicolasPonchaut_prosFonc
         public string deminConcact(string[,] matrice)
         {
             string message = "";
-            message += "\n";
-            for (int i = 0; i < matrice.GetLength(0); i++)
+            if (matrice.GetLength(0) >= 10)
             {
-                message += "| ";
-                for (int j = 0; j < matrice.GetLength(1); j++)
+                for (int i = 0; i < matrice.GetLength(0) - 1; i++)
                 {
-                    if (matrice[i, j] != null)
+                    message += "| ";
+                    for (int j = 0; j < matrice.GetLength(1) - 1; j++)
                     {
-                        message += matrice[i, j] + " | ";
+                        if (i >= 10)
+                        {
+                            if (matrice[i, j] != null)
+                            {
+                                
+                                if (j == 0)
+                                {
+                                    message += matrice[i, j] + " | ";
+                                }
+                                else
+                                {
+                                    message += matrice[i, j] + "  | ";
+                                }
+                            }
+                            else
+                            {
+
+                                message += "   | ";
+                                
+                            }
+                        }
+                        else if(i == 0)
+                        {
+                            if (j >= 10)
+                            {
+                                message += matrice[i, j] + " | ";
+                            }
+                            else
+                            {
+                                message += matrice[i, j] + "  | ";
+                            }
+                        }
+                        else
+                        {
+                            if (matrice[i, j] != null)
+                            {
+                                message += matrice[i, j] + "  | ";
+                            }
+                            else
+                            {
+                                message += "   | ";
+                            }
+                        }
                     }
-                    else
-                    {
-                        message += "  | ";
-                    }
+                    message += "\n";
                 }
-                message += "\n";
-                /*for (int j = 0; j < matrice.GetLength(1); j++)
+            }
+            else
+            {
+                for (int i = 0; i < matrice.GetLength(0) - 1; i++)
                 {
-                    message += "-";
+                    message += "| ";
+                    for (int j = 0; j < matrice.GetLength(1) - 1; j++)
+                    {
+                        if (matrice[i, j] != null)
+                        {
+                            message += matrice[i, j] + " | ";
+                        }
+                        else
+                        {
+                            message += "  | ";
+                        }
+                    }
+                    message += "\n";
                 }
-                message += "\n";*/
             }
             return message;
         }
@@ -422,7 +474,6 @@ namespace _5TTI_NicolasPonchaut_prosFonc
         public string[,] placementBombe(int bombe, string[,] matrice)
         {
             int i = 0;
-            matrice[2, 2] = "@";
             while (i < bombe)
             {
                 int pW = aleNumber(1, matrice.GetLength(0) - 2);
@@ -477,13 +528,13 @@ namespace _5TTI_NicolasPonchaut_prosFonc
             x = 0;
             y = 0;
             string[] inter = interact.Split(" ");
-            if(inter.Length == 2)
+            if (inter.Length == 2)
             {
                 if (int.TryParse(inter[0], out int w) && int.TryParse(inter[1], out int h))
                 {
                     if (0 < w && w < matrice.GetLength(0) && 0 < h && h < matrice.GetLength(1))
                     {
-                        if (plateau[w,h] == null || (int)Char.Parse(plateau[w,h]) == 202)
+                        if (plateau[w, h] == null || (int)Char.Parse(plateau[w, h]) == 202)
                         {
                             x = w;
                             y = h;
@@ -520,7 +571,7 @@ namespace _5TTI_NicolasPonchaut_prosFonc
         public bool creuser(int w, int h, string[,] plateau, string[,] matrice)
         {
             plateau[w, h] = matrice[w, h];
-            if (plateau[w,h] == "@")
+            if (plateau[w, h] == "@")
             {
                 return false;
             }
@@ -556,26 +607,29 @@ namespace _5TTI_NicolasPonchaut_prosFonc
         /// <param name="plateau">le plateau afficher</param>
         /// <param name="matrice">le plateau complet</param>
         /// <returns>si il meurt ou non</returns>
-        public bool creuserAuto(int w, int h, string[,] plateau, string[,] matrice)
+        public bool creuserAuto(int w, int h, string[,] plateau, string[,] matrice, ref List<string> list)
         {
             plateau[w, h] = matrice[w, h];
             if (plateau[w, h] == "@")
             {
-                return true;
+                return false;
             }
             else
             {
-                if (plateau[w,h] == "0")
+                if (plateau[w, h] == "0")
                 {
                     for (int y = h - 1; y <= h + 1; y++)
                     {
                         for (int x = w - 1; x <= w + 1; x++)
                         {
-                            creuserAuto(x, y, plateau, matrice);
+                            if (plateau[x, y] == null && !list.Contains($"{x} {y}"))
+                            {
+                                list.Add($"{x} {y}");
+                            }
                         }
                     }
                 }
-                    return false;
+                return true;
             }
         }
 
