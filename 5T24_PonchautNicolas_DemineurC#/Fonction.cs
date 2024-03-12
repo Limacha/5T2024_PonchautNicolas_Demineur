@@ -135,7 +135,7 @@ namespace _5TTI_NicolasPonchaut_prosFonc
             try
             {
                 StreamWriter sw = new StreamWriter(filePath, true);
-                sw.WriteLine(text + "\n");
+                sw.WriteLine(text);
                 sw.Close();
             }
             catch (Exception e)
@@ -382,6 +382,94 @@ namespace _5TTI_NicolasPonchaut_prosFonc
 
         #region demineur
 
+
+        public void deminReadClassement(string filePath)
+        {
+            int i = 0;
+            List<string> classement = new List<string> { };
+            try
+            {
+                //lecture
+                StreamReader sr = new StreamReader(filePath);
+                string line = sr.ReadLine();
+                //Continue to read until you reach end of file
+                while (line != null)
+                {
+                    classement.Add(line);
+                    //Read the next line
+                    line = sr.ReadLine();
+                    i++;
+                }
+                //close the file
+                sr.Close();
+
+                int[,] tri = new int[classement.Count(), 2];
+                //creation matrice tri
+                for (int j = 0; j < classement.Count(); j++)
+                {
+                    string[] subs = classement[j].Split(':');
+                    tri[j, 0] = j;
+                    int time = 0;
+                    for (int s = 1; s < 4; s++) {
+                        int.TryParse(subs[s], out int addTime);
+                        switch (s)
+                        {
+                            case 1:
+                                time += addTime * 24 * 60;
+                                break;
+                            case 2:
+                                time += addTime * 60;
+                                break;
+                            case 3:
+                                time += addTime;
+                                break;
+                        }
+                    }
+                    tri[j, 1] = time;
+                }
+
+                //tri par ordre
+                int ecart = tri.GetLength(0);
+                bool swp;
+                int swap;
+                do
+                {
+                    ecart /= 2;
+                    do
+                    {
+                        swp = false;
+                        for (int q = 0; q < tri.GetLength(0) - ecart; q++)
+                        {
+                            if (tri[q, 1] > tri[q + ecart, 1])
+                            {
+                                swp = true;
+                                swap = tri[q, 1];
+                                tri[q, 1] = tri[q + ecart, 1];
+                                tri[q + ecart, 1] = swap;
+
+                                swap = tri[q, 0];
+                                tri[q, 0] = tri[q + ecart, 0];
+                                tri[q + ecart, 0] = swap;
+                            }
+                        }
+                    } while (swp);
+                } while (ecart != 1);
+
+
+                string message = "";
+                for (int p = 0; p < 10 && p < tri.GetLength(0); p++)
+                {
+                    message += classement[tri[p, 0]] + "; ";
+
+                    message += "\n";
+                }
+                Console.WriteLine(message);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception: " + e.Message);
+            }
+        }
         /// <summary>
         /// transformer une matrice en string
         /// </summary>
@@ -534,7 +622,7 @@ namespace _5TTI_NicolasPonchaut_prosFonc
                 {
                     if (0 < w && w < matrice.GetLength(0) && 0 < h && h < matrice.GetLength(1))
                     {
-                        if (plateau[w, h] == null || (int)Char.Parse(plateau[w, h]) == 202)
+                        if (plateau[w, h] == null || (int)Char.Parse(plateau[w, h]) == 20)
                         {
                             x = w;
                             y = h;
@@ -591,7 +679,7 @@ namespace _5TTI_NicolasPonchaut_prosFonc
         {
             if (plateau[w, h] == null)
             {
-                plateau[w, h] = ((char)202).ToString();
+                plateau[w, h] = ((char)20).ToString();
             }
             else
             {
