@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.NetworkInformation;
 
 namespace _5TTI_NicolasPonchaut_prosFonc
 {
@@ -25,6 +26,25 @@ namespace _5TTI_NicolasPonchaut_prosFonc
             {
                 Console.WriteLine(question);
             } while (!int.TryParse(Console.ReadLine(), out n));
+            return n;
+        }
+        /// <summary>
+        /// lire un int sur un consolRead sans crash
+        /// </summary>
+        /// <param name="question">la question a possez</param>
+        /// <param name="min">la valeur min</param>
+        /// <param name="max">la valeur max</param>
+        /// <returns>la valeur int entrer</returns>
+        public int lireIntMinMax(string question, int min, int max)
+        {
+            int n;
+            do
+            {
+                do
+                {
+                    Console.WriteLine(question);
+                } while (!int.TryParse(Console.ReadLine(), out n));
+            } while (min <= n && max >= n);
             return n;
         }
         /// <summary>
@@ -475,16 +495,25 @@ namespace _5TTI_NicolasPonchaut_prosFonc
         /// </summary>
         /// <param name="matrice">matrice non null</param>
         /// <returns>la matrice en string</returns>
-        public string deminConcact(string[,] matrice)
+        public void deminConcact(string[,] matrice, int x, int y)
         {
-            string message = "";
+            int j = 1;
             if (matrice.GetLength(0) >= 10)
             {
-                for (int i = 0; i < matrice.GetLength(0) - 1; i++)
+                for (int i = 1; i < matrice.GetLength(0) - 1; i++)
                 {
-                    message += "| ";
-                    for (int j = 0; j < matrice.GetLength(1) - 1; j++)
+                    if (1 == y && i == x)
                     {
+                        Console.BackgroundColor = ConsoleColor.Red;
+                    }
+                    Console.Write("| ");
+                    Console.ResetColor();
+                    for (j = 1; j < matrice.GetLength(1) - 1; j++)
+                    {
+                        if (j == y && i == x)
+                        {
+                            Console.BackgroundColor = ConsoleColor.Red;
+                        }
                         if (i >= 10)
                         {
                             if (matrice[i, j] != null)
@@ -492,17 +521,17 @@ namespace _5TTI_NicolasPonchaut_prosFonc
                                 
                                 if (j == 0)
                                 {
-                                    message += matrice[i, j] + " | ";
+                                    Console.Write(matrice[i, j]);
                                 }
                                 else
                                 {
-                                    message += matrice[i, j] + "  | ";
+                                    Console.Write(matrice[i, j] + " ");
                                 }
                             }
                             else
                             {
 
-                                message += "   | ";
+                                Console.Write("  ");
                                 
                             }
                         }
@@ -510,48 +539,68 @@ namespace _5TTI_NicolasPonchaut_prosFonc
                         {
                             if (j >= 10)
                             {
-                                message += matrice[i, j] + " | ";
+                                Console.Write(matrice[i, j]);
                             }
                             else
                             {
-                                message += matrice[i, j] + "  | ";
+                                Console.Write(matrice[i, j] + " ");
                             }
                         }
                         else
                         {
                             if (matrice[i, j] != null)
                             {
-                                message += matrice[i, j] + "  | ";
+                                Console.Write(matrice[i, j] + " ");
                             }
                             else
                             {
-                                message += "   | ";
+                                Console.Write("  ");
                             }
                         }
+                        if (j + 1 == y && i == x)
+                        {
+                            Console.BackgroundColor = ConsoleColor.Red;
+                        }
+                        Console.Write(" | ");
+                        Console.ResetColor();
                     }
-                    message += "\n";
+                    Console.Write("\n");
                 }
             }
             else
             {
-                for (int i = 0; i < matrice.GetLength(0) - 1; i++)
+                for (int i = 1; i < matrice.GetLength(0) - 1; i++)
                 {
-                    message += "| ";
-                    for (int j = 0; j < matrice.GetLength(1) - 1; j++)
+                    if (1 == y && i == x)
                     {
+                        Console.BackgroundColor = ConsoleColor.Red;
+                    }
+                    Console.Write("| ");
+                    Console.ResetColor();
+                    for (j = 1; j < matrice.GetLength(1) - 1; j++)
+                    {
+                        if (j == y && i == x)
+                        {
+                            Console.BackgroundColor = ConsoleColor.Red;
+                        }
                         if (matrice[i, j] != null)
                         {
-                            message += matrice[i, j] + " | ";
+                            Console.Write(matrice[i, j]);
                         }
                         else
                         {
-                            message += "  | ";
+                            Console.Write(" ");
                         }
+                        if (j + 1 == y && i == x)
+                        {
+                            Console.BackgroundColor = ConsoleColor.Red;
+                        }
+                        Console.Write(" | ");
+                        Console.ResetColor();
                     }
-                    message += "\n";
+                    Console.Write("\n");
                 }
             }
-            return message;
         }
         /// <summary>
         /// placer les bombe dans une matrice
@@ -675,15 +724,17 @@ namespace _5TTI_NicolasPonchaut_prosFonc
         /// <param name="h">position en hauteur</param>
         /// <param name="plateau">le plateau afficher</param>
         /// <returns>le plateau de jeux</returns>
-        public string[,] drapeau(int w, int h, string[,] plateau)
+        public string[,] drapeau(int w, int h, string[,] plateau, int bombe, ref int nb)
         {
-            if (plateau[w, h] == null)
+            if (plateau[w, h] == null && bombe > nb)
             {
                 plateau[w, h] = ((char)20).ToString();
+                nb++;
             }
-            else
+            else if (plateau[w, h] == ((char)20).ToString())
             {
                 plateau[w, h] = null;
+                nb--;
             }
             return plateau;
         }

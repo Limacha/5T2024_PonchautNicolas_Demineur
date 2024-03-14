@@ -8,6 +8,14 @@ namespace _5T24_PonchautNicolas_DemineurC_
         static void Main(string[] args)
         {
             Fonction fonction = new Fonction();
+            Console.Title = "Demineur";
+            Console.WriteLine("  ____    U _____ u   __  __                   _   _     U _____ u    _   _     ____     \r\n" +
+                              " |  _\"\\   \\| ___\"|/ U|' \\/ '|u      ___       | \\ |\"|    \\| ___\"|/ U |\"|u| | U |  _\"\\ u  \r\n" +
+                              "/| | | |   |  _|\"   \\| |\\/| |/     |_\"_|     <|  \\| |>    |  _|\"    \\| |\\| |  \\| |_) |/  \r\n" +
+                              "U| |_| |\\  | |___    | |  | |       | |      U| |\\  |u    | |___     | |_| |   |  _ <    \r\n" +
+                              " |____/ u  |_____|   |_|  |_|     U/| |\\u     |_| \\_|     |_____|   <<\\___/    |_| \\_\\   \r\n" +
+                              "  |||_     <<   >>  <<,-,,-.   .-,_|___|_,-.  ||   \\\\,-.  <<   >>  (__) )(     //   \\\\_  \r\n" +
+                              " (__)_)   (__) (__)  (./  \\.)   \\_)-' '-(_/   (_\")  (_/  (__) (__)     (__)   (__)  (__) ");
             do
             {
                 bool life = true;
@@ -15,16 +23,21 @@ namespace _5T24_PonchautNicolas_DemineurC_
                 int w;
                 int h;
                 string pseudo = "";
-                Console.WriteLine("afficher le classement et ne pas jouer?\nSi oui pressez space.");
+                int x = 1;
+                int y = 1;
+                int nb = 0;
+
+                Console.WriteLine("afficher le classement et ne pas jouer?\nSi oui pressez space.\nSinon n'importe quel touche.");
                 if (Console.ReadKey().Key == ConsoleKey.Spacebar)
                 {
+                    fonction.sleep(1, false);
                     Console.WriteLine("voici le classement des 10 premiers.");
                     fonction.deminReadClassement(@"D:\github\5T2024_PonchautNicolas_Demineur\5T24_PonchautNicolas_DemineurC#\data.txt");
                 }
                 else
                 {
                     Console.Clear();
-                    Console.WriteLine("Avec un tuto?\nSi oui pressez space.");
+                    Console.WriteLine("Avec un tuto?\nSi oui pressez space.\nSinon n'importe quel touche.");
                     if (Console.ReadKey().Key == ConsoleKey.Spacebar)
                     {
                         Console.WriteLine($"Votre but est de creuser toute les case ou il n'y a pas de bombe(@) et de possez un drapeau({(char)20}) sur toute les case avec une bombe.");
@@ -37,15 +50,15 @@ namespace _5T24_PonchautNicolas_DemineurC_
                         Console.WriteLine($"Bon jeux");
                         fonction.sleep(3, false);
                     }
-                    Console.WriteLine("mode Classer (20 par 20 avec 250 bombe)?\nSi oui pressez space.");
+                    Console.WriteLine("mode Classer (20 par 20 avec 150 bombe)?\nSi oui pressez space.\nSinon n'importe quel touche.");
                     bool classer = Console.ReadKey().Key == ConsoleKey.Spacebar;
                     Console.Clear();
                     if (classer)
                     {
                         Console.WriteLine("Votre pseudo.");
                         pseudo = Console.ReadLine();
-                        w = 1;
-                        h = 1;
+                        w = 20;
+                        h = 20;
                     }
                     else
                     {
@@ -73,7 +86,7 @@ namespace _5T24_PonchautNicolas_DemineurC_
                     int bombe;
                     if (classer)
                     {
-                        bombe = 0;
+                        bombe = 150;
                     }
                     else
                     {
@@ -83,12 +96,16 @@ namespace _5T24_PonchautNicolas_DemineurC_
                         } while (bombe <= 1 || bombe >= h * w);
                     }
                     matrice = fonction.calcNumber(fonction.placementBombe(bombe, matrice));
-
+                    /*
                     Console.WriteLine("Mode dev?");
                     bool dev = Console.ReadKey().Key == ConsoleKey.Spacebar;
+                    fonction.sleep(1, false);*/
+                    bool dev = false;
+
                     fonction.ClearLastLine();
-                    Console.WriteLine("Mode creusage auto si 0?\nSi oui pressez space.");
+                    Console.WriteLine("Creuser automatiquement toute les case autour des 0?\nSi oui pressez space.\nSinon n'importe quel touche.");
                     bool auto = Console.ReadKey().Key == ConsoleKey.Spacebar;
+                    fonction.sleep(1, false);
                     fonction.ClearLastLine();
 
                     Stopwatch stopWatch = new Stopwatch();
@@ -98,20 +115,39 @@ namespace _5T24_PonchautNicolas_DemineurC_
                         Console.Clear();
                         if (dev)
                         {
-                            Console.WriteLine(fonction.deminConcact(matrice));
+                            fonction.deminConcact(matrice, x, y);
                         }
-                        Console.WriteLine(fonction.deminConcact(plateau));
-                        Console.WriteLine("avec quelle case interagir?\nformat:x y");
-                        if (fonction.verifCase(Console.ReadLine(), plateau, matrice, out int x, out int y))
+                        fonction.deminConcact(plateau, x, y);
+                        switch (Console.ReadKey().Key)
                         {
-                            Console.WriteLine($"que voulez vous faire en {x} {y}?\nc: creuser\nd: drapeau");
-                            string interact = Console.ReadLine();
-                            if (interact == "d" || interact == "D")
-                            {
-                                plateau = fonction.drapeau(x, y, plateau);
-                            }
-                            else if (interact == "c" || interact == "C")
-                            {
+                            case ConsoleKey.UpArrow:
+                                if (x - 1 >= 1)
+                                {
+                                    x--;
+                                }
+                                break;
+                            case ConsoleKey.DownArrow:
+                                if (x + 1 <= h)
+                                {
+                                    x++;
+                                }
+                                break;
+                            case ConsoleKey.LeftArrow:
+                                if (y - 1 >= 1)
+                                {
+                                    y--;
+                                }
+                                break;
+                            case ConsoleKey.RightArrow:
+                                if (y + 1 <= w)
+                                {
+                                    y++;
+                                }
+                                break;
+                            case ConsoleKey.D:
+                                plateau = fonction.drapeau(x, y, plateau, bombe, ref nb);
+                                break;
+                            case ConsoleKey.C:
                                 if (plateau[x, y] == null)
                                 {
                                     if (auto)
@@ -132,7 +168,10 @@ namespace _5T24_PonchautNicolas_DemineurC_
                                         life = fonction.creuser(x, y, plateau, matrice);
                                     }
                                 }
-                            }
+                                break;
+                            case ConsoleKey.Q:
+                                Environment.Exit(0);
+                                break;
                         }
                         win = false;
                         for (int i = 1; i < matrice.GetLength(0) - 1; i++)
@@ -160,7 +199,7 @@ namespace _5T24_PonchautNicolas_DemineurC_
                     if (!win)
                     {
                         Console.WriteLine($"Vous avez gagnez en {elapsedTime} bien joue.");
-                        Console.WriteLine(fonction.deminConcact(plateau));
+                        fonction.deminConcact(plateau, x, y);
                         if (classer)
                         {
                             fonction.writeinFile($"{pseudo}:{elapsedTime}", @"D:\github\5T2024_PonchautNicolas_Demineur\5T24_PonchautNicolas_DemineurC#\data.txt");
@@ -172,9 +211,9 @@ namespace _5T24_PonchautNicolas_DemineurC_
                     else
                     {
                         Console.WriteLine($"Vous avez perdu en {elapsedTime} dommage.\nVotre tableau était");
-                        Console.WriteLine(fonction.deminConcact(plateau));
+                        fonction.deminConcact(plateau, x, y);
                         Console.WriteLine("Voici le tableau finalle.");
-                        Console.WriteLine(fonction.deminConcact(matrice));
+                        fonction.deminConcact(matrice, x, y);
                     }
                 }
                 Console.WriteLine("pour recommencez presser space.");
