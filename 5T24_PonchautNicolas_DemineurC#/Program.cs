@@ -9,13 +9,6 @@ namespace _5T24_PonchautNicolas_DemineurC_
         {
             Fonction fonction = new Fonction();
             Console.Title = "Demineur";
-            Console.WriteLine("  ____    U _____ u   __  __                   _   _     U _____ u    _   _     ____     \r\n" +
-                              " |  _\"\\   \\| ___\"|/ U|' \\/ '|u      ___       | \\ |\"|    \\| ___\"|/ U |\"|u| | U |  _\"\\ u  \r\n" +
-                              "/| | | |   |  _|\"   \\| |\\/| |/     |_\"_|     <|  \\| |>    |  _|\"    \\| |\\| |  \\| |_) |/  \r\n" +
-                              "U| |_| |\\  | |___    | |  | |       | |      U| |\\  |u    | |___     | |_| |   |  _ <    \r\n" +
-                              " |____/ u  |_____|   |_|  |_|     U/| |\\u     |_| \\_|     |_____|   <<\\___/    |_| \\_\\   \r\n" +
-                              "  |||_     <<   >>  <<,-,,-.   .-,_|___|_,-.  ||   \\\\,-.  <<   >>  (__) )(     //   \\\\_  \r\n" +
-                              " (__)_)   (__) (__)  (./  \\.)   \\_)-' '-(_/   (_\")  (_/  (__) (__)     (__)   (__)  (__) ");
             do
             {
                 bool life = true;
@@ -27,7 +20,15 @@ namespace _5T24_PonchautNicolas_DemineurC_
                 int y = 1;
                 int nb = 0;
 
-                Console.WriteLine("afficher le classement et ne pas jouer?\nSi oui pressez space.\nSinon n'importe quel touche.");
+                Console.Clear();
+                Console.WriteLine("  ____    U _____ u   __  __                   _   _     U _____ u    _   _     ____     \r\n" +
+                              " |  _\"\\   \\| ___\"|/ U|' \\/ '|u      ___       | \\ |\"|    \\| ___\"|/ U |\"|u| | U |  _\"\\ u  \r\n" +
+                              "/| | | |   |  _|\"   \\| |\\/| |/     |_\"_|     <|  \\| |>    |  _|\"    \\| |\\| |  \\| |_) |/  \r\n" +
+                              "U| |_| |\\  | |___    | |  | |       | |      U| |\\  |u    | |___     | |_| |   |  _ <    \r\n" +
+                              " |____/ u  |_____|   |_|  |_|     U/| |\\u     |_| \\_|     |_____|   <<\\___/    |_| \\_\\   \r\n" +
+                              "  |||_     <<   >>  <<,-,,-.   .-,_|___|_,-.  ||   \\\\,-.  <<   >>  (__) )(     //   \\\\_  \r\n" +
+                              " (__)_)   (__) (__)  (./  \\.)   \\_)-' '-(_/   (_\")  (_/  (__) (__)     (__)   (__)  (__) ");
+                Console.WriteLine("\nafficher le classement et ne pas jouer?\nSi oui pressez space.\nSinon n'importe quel touche.");
                 if (Console.ReadKey().Key == ConsoleKey.Spacebar)
                 {
                     fonction.sleep(1, false);
@@ -40,17 +41,17 @@ namespace _5T24_PonchautNicolas_DemineurC_
                     Console.WriteLine("Avec un tuto?\nSi oui pressez space.\nSinon n'importe quel touche.");
                     if (Console.ReadKey().Key == ConsoleKey.Spacebar)
                     {
+                        Console.Clear();
                         Console.WriteLine($"Votre but est de creuser toute les case ou il n'y a pas de bombe(@) et de possez un drapeau({(char)20}) sur toute les case avec une bombe.");
                         fonction.sleep(3, false);
-                        Console.WriteLine($"pour sela vous devrez entre des coordonner comme 1 2 avec comme premier valeur pour la ligne et l'autre la column.");
-                        Console.WriteLine($"| 0 | 1 | 2 |\n| 1 |   | {(char)20} |\n| 2 |   |   |");
+                        Console.WriteLine($"\npour sela vous pouvez vous deplacer avec les fleche directionelle.");
                         fonction.sleep(3, false);
-                        Console.WriteLine($"pour sela lorseque on vous demandera de choisir un interaction il sufira d'entre un des chois et si vous essayer de creuser un drapeau alors rien ne se passe.");
+                        Console.WriteLine($"\npuis pressez c pour creuser et d pour posez ou enlevez un drapeau.");
                         fonction.sleep(3, false);
-                        Console.WriteLine($"Bon jeux");
-                        fonction.sleep(3, false);
+                        Console.WriteLine($"\nBon jeux");
+                        fonction.sleep(5, false);
                     }
-                    Console.WriteLine("mode Classer (20 par 20 avec 150 bombe)?\nSi oui pressez space.\nSinon n'importe quel touche.");
+                    Console.WriteLine("\nmode Classer (20 par 20 avec 150 bombe)?\nSi oui pressez space.\nSinon n'importe quel touche.");
                     bool classer = Console.ReadKey().Key == ConsoleKey.Spacebar;
                     Console.Clear();
                     if (classer)
@@ -146,6 +147,7 @@ namespace _5T24_PonchautNicolas_DemineurC_
                                 break;
                             case ConsoleKey.D:
                                 plateau = fonction.drapeau(x, y, plateau, bombe, ref nb);
+                                fonction.ClearLastLine();
                                 break;
                             case ConsoleKey.C:
                                 if (plateau[x, y] == null)
@@ -168,6 +170,7 @@ namespace _5T24_PonchautNicolas_DemineurC_
                                         life = fonction.creuser(x, y, plateau, matrice);
                                     }
                                 }
+                                fonction.ClearLastLine();
                                 break;
                             case ConsoleKey.Q:
                                 Environment.Exit(0);
@@ -189,6 +192,7 @@ namespace _5T24_PonchautNicolas_DemineurC_
                             life = win;
                         }
                     }
+                    Console.Clear();
                     stopWatch.Stop();
                     // Get the elapsed time as a TimeSpan value.
                     TimeSpan ts = stopWatch.Elapsed;
