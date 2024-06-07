@@ -108,12 +108,13 @@ namespace _5T24_PonchautNicolas_DemineurC_
                     bool auto = Console.ReadKey().Key == ConsoleKey.Spacebar;
                     fonction.sleep(1, false);
                     fonction.ClearLastLine();
+                    Console.Clear();
 
                     Stopwatch stopWatch = new Stopwatch();
                     stopWatch.Start();
                     while (life)
                     {
-                        Console.Clear();
+                        Console.SetCursorPosition(0, 0);
                         if (dev)
                         {
                             fonction.deminConcact(matrice, x, y);
